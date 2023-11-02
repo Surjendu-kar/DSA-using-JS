@@ -1,3 +1,4 @@
+// O(1) -> constant time -> no loops
 function addUpTo(n){
     return n * (n + 1) / 2;
 }
