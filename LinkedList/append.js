@@ -8,7 +8,7 @@ class LinkedList {
       this.tail = this.head;
       this.length = 1;
     }
-    append(value) {
+    append(value) {     // O(1)
       const newNode = {
         value: value,
         next: null,

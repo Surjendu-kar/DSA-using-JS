@@ -8,11 +8,12 @@ class LinkedList {
     this.tail = this.head;
     this.length = 1;
   }
-  prepend(value) {
+  prepend(value) {     // O(1)
     const newNode = {
       value: value,
-      next: this.head,
+      next: null,
     };
+    newNode.next = this.head;
     this.head=newNode;
     this.length++;
   }
