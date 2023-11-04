@@ -1,3 +1,5 @@
+// Output =>>>   5 -> 10 -> 20 -> 30
+//               30 -> 20 -> 10 -> 5
 class DoublyLinkedList {
   constructor(value) {
     this.head = {
@@ -8,6 +10,7 @@ class DoublyLinkedList {
     this.tail = this.head;
     this.length = 1;
   }
+
   append(value) {
     const newNode = {
       value: value,
@@ -35,9 +38,13 @@ class DoublyLinkedList {
 
     return this.printList();
   }
+
   insert(index, value) {
     if (index >= this.length) {
       return this.append(value);
+    }
+    if (index === 0) {
+      return this.prepend(value);
     }
     const newNode = {
       value: value,
@@ -68,15 +75,23 @@ class DoublyLinkedList {
   }
 
   remove(index) {
-    const leader = this.traverseToIndex(index - 1);
-    const deleteNode = leader.next;
-    const nextNode = deleteNode.next;
+    
+    if (index === 0) {
+      const deletenode = this.head;
+      this.head = deletenode.next;
+      this.head.prev = null;
+    } else {
+      const leader = this.traverseToIndex(index - 1);
+      const deleteNode = leader.next;
+      const nextNode = deleteNode.next;
 
-    leader.next = nextNode;
-    nextNode.prev = leader;
+      leader.next = nextNode;
+      nextNode.prev = leader;
+    }
     this.length--;
     return this.printList();
   }
+
   printList() {
     // O(n)
     const arr1 = [];
@@ -88,6 +103,7 @@ class DoublyLinkedList {
     }
     return arr1;
   }
+
   reverseList() {
     // O(n)
     const arr2 = [];
@@ -102,13 +118,14 @@ class DoublyLinkedList {
 }
 
 const myLinkedList = new DoublyLinkedList(10);
-console.log(myLinkedList.prepend(1));
-console.log(myLinkedList.append(20))
+console.log(myLinkedList.prepend(3));
+console.log(myLinkedList.append(20));
 console.log(myLinkedList.append(30));
-console.log(myLinkedList.insert(1,5));
+console.log(myLinkedList.insert(1, 5));
+console.log(myLinkedList.insert(0, 0));
 
 console.log(myLinkedList);
 console.log(myLinkedList.printList());
 console.log(myLinkedList.remove(1));
+console.log(myLinkedList.remove(0));
 console.log(myLinkedList.reverseList());
-

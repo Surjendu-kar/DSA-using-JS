@@ -1,4 +1,4 @@
-//Output ====>       10 --> 7 --> 5 --> 16
+//Output ====>       7 --> 5 --> 16
 class SinglyLinkedList {
   constructor(value) {
     this.head = {
@@ -33,6 +33,9 @@ class SinglyLinkedList {
   }
   insert(index, value) {
     //O(n)
+    if (index === 0) {
+      return this.prepend(value);
+    }
     if (index >= this.length) {
       return this.append(value);
     }
@@ -60,9 +63,14 @@ class SinglyLinkedList {
   }
 
   remove(index) {
-    const leader = this.traverseToIndex(index - 1);
-    const deleteNode = leader.next;
-    leader.next = deleteNode.next;
+    if (index === 0) {
+      const deletenode = this.head;
+      this.head = deletenode.next;
+    } else {
+      const leader = this.traverseToIndex(index - 1);
+      const deleteNode = leader.next;
+      leader.next = deleteNode.next;
+    }
     this.length--;
     return this.printList();
   }
@@ -82,12 +90,13 @@ class SinglyLinkedList {
 
 const myLinkedList = new SinglyLinkedList(10);
 console.log(myLinkedList.prepend(1));
-console.log(myLinkedList.append(5))
+console.log(myLinkedList.append(5));
 console.log(myLinkedList.append(16));
 console.log(myLinkedList.insert(2, 7));
 
 console.log(myLinkedList);
 console.log(myLinkedList.printList());
 
-myLinkedList.remove(1);
-console.log(myLinkedList.printList());
+console.log(myLinkedList.remove(1));
+console.log(myLinkedList.remove(0));
+
